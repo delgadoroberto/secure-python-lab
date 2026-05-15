@@ -12,7 +12,7 @@ def home():
 @app.route("/ping")
 def ping():
     host = request.args.get("host")
-    result = subprocess.check_output(f"ping -c 1 {host}", shell=True)
+    result = subprocess.check_output(["ping", "-c", "1", host])
     return result
 
 if __name__ == "__main__":
