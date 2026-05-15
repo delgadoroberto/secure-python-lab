@@ -1,9 +1,10 @@
 from flask import Flask, request
 import subprocess
+import os
 
 app = Flask(__name__)
 
-PASSWORD = "SuperSecret123"
+PASSWORD = os.getenv("APP_PASSWORD")
 
 @app.route("/")
 def home():
