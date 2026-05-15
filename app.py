@@ -15,10 +15,5 @@ def ping():
     result = subprocess.check_output(f"ping -c 1 {host}", shell=True)
     return result
 
-@app.route("/eval")
-def dangerous():
-    data = request.args.get("data")
-    return str(eval(data))
-
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0")
