@@ -7,9 +7,11 @@ app = Flask(__name__)
 
 PASSWORD = os.getenv("APP_PASSWORD")
 
+
 @app.route("/")
 def home():
     return "Secure App"
+
 
 @app.route("/ping")
 def ping():
@@ -24,5 +26,23 @@ def ping():
 
     return result
 
+
+@app.route("/secret")
+def secret():
+
+    provided_password = request.headers.get("X-Password")
+
+    if not PASSWORD:
+        return "Server misconfiguration", 500
+
+    if provided_password != PASSWORD:
+        return "Unauthorized", 401
+
+    return {
+        "message": "Access granted",
+        "status": "success"
+    }
+
+
 if __name__ == "__main__":
-    app.run(debug=False, host="127.0.0.1")
+    app.run(debug=False, host="0.0.0.0")
